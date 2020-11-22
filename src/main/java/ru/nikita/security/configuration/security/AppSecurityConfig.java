@@ -13,6 +13,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/", "/api/v1/hello")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
