@@ -10,9 +10,24 @@ import java.util.List;
 public class UserService {
 
     private final List<User> users = List.of(
-            User.builder().id(1L).firstName("James").lastName("Bond").age(35).build(),
-            User.builder().id(2L).firstName("Ditta").lastName("Fon Tiss").age(43).build(),
-            User.builder().id(3L).firstName("Kiso").lastName("Babu").age(18).build()
+            User.builder()
+                    .id(1L)
+                    .firstName("James")
+                    .lastName("Bond")
+                    .age(35)
+                    .build(),
+            User.builder()
+                    .id(2L)
+                    .firstName("Ditta")
+                    .lastName("Fon Tiss")
+                    .age(43)
+                    .build(),
+            User.builder()
+                    .id(3L)
+                    .firstName("Kiso")
+                    .lastName("Babu")
+                    .age(18)
+                    .build()
     );
 
     public List<User> getUsers() {
