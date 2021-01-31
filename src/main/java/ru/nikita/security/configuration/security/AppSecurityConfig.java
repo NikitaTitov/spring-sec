@@ -28,10 +28,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/api/v1/hello")
                 .permitAll()
-//                .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority(UserPermissions.WRITE.getPermission())
-//                .antMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(UserPermissions.WRITE.getPermission())
-//                .antMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority(UserPermissions.WRITE.getPermission())
-                .antMatchers("/api/v1/**").hasAnyRole(UserRoles.ADMIN.name(), UserRoles.OBSERVER.name())
+                .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority(UserPermissions.WRITE.getPermission())
+                .antMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(UserPermissions.WRITE.getPermission())
+                .antMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority(UserPermissions.WRITE.getPermission())
+                .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole(UserRoles.ADMIN.name(), UserRoles.OBSERVER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,19 +44,19 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(encoder.encode("admin"))
-                .roles(UserRoles.ADMIN.name())
+                .authorities(UserRoles.ADMIN.getAuthorities())
                 .build();
 
         UserDetails observer = User.builder()
                 .username("observer")
                 .password(encoder.encode("observer"))
-                .roles(UserRoles.OBSERVER.name())
+                .authorities(UserRoles.OBSERVER.getAuthorities())
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
                 .password(encoder.encode("user"))
-                .roles(UserRoles.USER.name())
+                .authorities(UserRoles.USER.getAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/students")
+@RequestMapping("/api/v1/students")
 @RequiredArgsConstructor
 public class StudentController {
 
@@ -29,7 +29,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity addUser(@RequestBody Student student) {
+    public ResponseEntity<String> addUser(@RequestBody Student student) {
         log.info("Adding student to db {}", student);
         studentService.addStudent(student);
         return ResponseEntity.ok().body("Success added");
@@ -37,7 +37,7 @@ public class StudentController {
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity updateStudent(@RequestBody Student student) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student student) {
         log.info("Updating student in db {}", student);
         studentService.updateStudent(student);
         return ResponseEntity.ok().body("Success updated");
@@ -45,7 +45,7 @@ public class StudentController {
 
     @DeleteMapping("/{studentId}")
     @ResponseBody
-    public ResponseEntity deleteStudent(@PathVariable Long studentId) {
+    public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
         return ResponseEntity.ok().body("Success deleted");
     }
