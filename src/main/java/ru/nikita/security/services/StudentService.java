@@ -1,5 +1,8 @@
 package ru.nikita.security.services;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.nikita.security.exceptions.StudentNotFoundException;
 import ru.nikita.security.models.Student;
@@ -7,6 +10,7 @@ import ru.nikita.security.models.Student;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class StudentService {
 
@@ -36,11 +40,20 @@ public class StudentService {
     }
 
     public Student getStudent(Long userId) {
+
         return students
                 .stream()
                 .filter(student -> student.getId().equals(userId))
                 .findFirst()
                 .orElseThrow(StudentNotFoundException::new);
+    }
+
+    @Async
+    public void someAsyncMethod() {
+        log.warn(
+                "User with name {} was asked data about students",
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        );
     }
 
     public Student addStudent(Student student) {

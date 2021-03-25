@@ -9,6 +9,8 @@ import ru.nikita.security.models.Student;
 import ru.nikita.security.services.StudentService;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Slf4j
 @RestController
@@ -25,8 +27,10 @@ public class StudentController {
 
     @GetMapping("/{studentId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OBSERVER')")
-    public Student getStudent(@PathVariable Long studentId) {
-        return studentService.getStudent(studentId);
+    public Student getStudent(@PathVariable Long studentId) throws ExecutionException, InterruptedException {
+        Student student = studentService.getStudent(studentId);
+        studentService.someAsyncMethod();
+        return student;
     }
 
     @PostMapping
