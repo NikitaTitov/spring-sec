@@ -1,2 +1,5 @@
 application:
   version: "0.1"
+
+server:
+  port: ${SECURITY_APP_PORT}
